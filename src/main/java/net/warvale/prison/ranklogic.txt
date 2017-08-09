@@ -1,0 +1,46 @@
+There's three different rank levels;
+
+1. Network rank level (TOP PRIORITY)
+- Includes prefixes from staffcore like [ADMIN] [MOD] [BUILDER] etc. Should ALWAYS be on the far left and the same color.
+
+2. Prison-rank level (MEDIUM PRIORITY)
+- Includes stars for ranks like Warden or Guard (❈,✵) etc. Should always show RIGHT BEFORE USERNAME. 
+
+3. Wanted-level rank level (LOWEST PRIORITY)
+- The wanted-level system will track your money/corruption and give you a star (for example, 500 corruption points/exp for 2 stars, etc)
+- Every time you get a new corruption point, it will display like so:
+
+---
+[NETWORK LEVEL] [3⋆] [PRISON-RANK LEVEL {if applicable}] Username: Chat
+---
+
+Here is an example;
+
+[ADMIN] [6⋆] ❈ Pixelific: Hey guys
+
+Explained:
+[ADMIN] his network level rank
+[6⋆] how many wanted levels he has
+❈ his warden star
+
+Wanted star levels:
+
+1⋆ unlocked by default
+2⋆ 500exp
+3⋆ 2300 exp
+4⋆ 10800 exp
+5⋆ 45300 exp
+6⋆ 162,500 exp
+7⋆ 452,120 exp
+8⋆ 1,245,980 exp
+9⋆ 4,560,370 exp
+
+How to gain exp:
+
+- Take the cost (in vales) of an item when purchased; subtract half, add that to a user's exp
+- Give 500 exp when beating the warehouse
+- Give 2000 exp when killing a guard
+- Give 250 exp when killing a player
+- Reward 100 exp for every hour of playtime
+
+In the future, gaining exp can also come from owning gangs, beating quests, winning jail-games, etc.

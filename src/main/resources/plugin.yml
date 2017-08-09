@@ -1,0 +1,22 @@
+main: net.warvale.prison.Prison
+name: WarvalePrison
+version: 1.0
+author: The Warvale Developers
+description: Warvale Prison Core
+commands:
+  vale:
+    description: Manage the eco
+    usage: /vale <set/get> <player> [amount (only if its set)]
+  givesubstance:
+    description: Give a specified player or yourself a specified substance.
+    usage: /givedrug <substance> [player]
+    permission: warvaleprison.give
+    aliases: [gd]
+  resetores:
+    description: Reset all of the ores in the mine.
+    permisson: warvaleprison.resetores
+    aliases: [resetmine]
+  rank:
+    description: Everything involving ranks
+    permission: warvaleprison.rank
+permissions: {}
