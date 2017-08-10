@@ -19,4 +19,7 @@ commands:
   rank:
     description: Everything involving ranks
     permission: warvaleprison.rank
+  givegoditem:
+    description: Gives yourself a God item
+    permission: warvaleprison.givegoditem
 permissions: {}

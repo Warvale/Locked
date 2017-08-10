@@ -1,6 +1,6 @@
 package net.warvale.prison;
 
-
+import me.warvale.prison.commands.GiveGodItem;
 import net.warvale.prison.commands.CommandHandler;
 import net.warvale.prison.items.substances.AbstractSubstance;
 import net.warvale.prison.items.substances.SubstanceListener;
@@ -51,6 +51,9 @@ public class Prison extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new IronKeyListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
         Bukkit.getPluginManager().registerEvents(new RankListener(), this);
+		
+		//Register commands here:
+		getCommand("givegoditem").setExecutor(new GiveGodItem());
     }
 
     @Override
