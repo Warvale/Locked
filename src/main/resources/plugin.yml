@@ -21,5 +21,5 @@ commands:
     permission: warvaleprison.rank
   givegoditem:
     description: Gives yourself a God item
-    permission: warvaleprison.givegoditem
+    permission: warvaleprison.give
 permissions: {}

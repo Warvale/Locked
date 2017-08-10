@@ -2,8 +2,8 @@ package net.warvale.prison.commands;
 
 import net.warvale.prison.Prison;
 import net.warvale.prison.commands.admin.ResetOresCommand;
+import net.warvale.prison.items.goditems.GiveGodItem;
 import net.warvale.prison.items.substances.GiveSubstance;
-import net.warvale.prison.ranks.RankCommand;
 import net.warvale.prison.utils.Broadcast;
 import net.warvale.prison.vale.ValeCommand;
 import org.bukkit.command.*;
@@ -118,7 +118,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         // Admin
         cmds.add(new GiveSubstance());
         cmds.add(new ResetOresCommand());
-        cmds.add(new RankCommand());
+        cmds.add(new GiveGodItem());
         // Basic
         cmds.add(new ValeCommand(plugin));
 
