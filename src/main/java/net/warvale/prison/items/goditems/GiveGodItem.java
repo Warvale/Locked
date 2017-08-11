@@ -15,10 +15,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class GiveGodItem extends AbstractCommand {
 
-	public GiveGodItem(){
+	public GiveGodItem() {
 		super("givegoditem", "");
 	}
 
@@ -35,7 +34,6 @@ public class GiveGodItem extends AbstractCommand {
 		goditem.setItemMeta(goditemMeta);
 		player.getInventory().addItem(goditem);
 		player.sendMessage(ChatColor.AQUA + "Receiving item...");
-
 
 		return true;
 	}
