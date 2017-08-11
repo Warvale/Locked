@@ -1,5 +1,5 @@
 main: net.warvale.prison.Prison
-name: WarvalePrison
+name: Locked
 version: 1.0
 author: The Warvale Developers
 description: Warvale Prison Core
@@ -10,16 +10,16 @@ commands:
   givesubstance:
     description: Give a specified player or yourself a specified substance.
     usage: /givedrug <substance> [player]
-    permission: warvaleprison.give
+    permission: locked.give
     aliases: [gd]
   resetores:
     description: Reset all of the ores in the mine.
-    permisson: warvaleprison.resetores
+    permisson: locked.resetores
     aliases: [resetmine]
-  rank:
-    description: Everything involving ranks
-    permission: warvaleprison.rank
   givegoditem:
     description: Gives yourself a God item
-    permission: warvaleprison.give
+    permission: locked.give
+  setstatus:
+    description: Set the status of any player (prisoner, guard, warden)
+    permission: locked.admin
 permissions: {}

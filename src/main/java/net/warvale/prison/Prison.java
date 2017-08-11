@@ -49,7 +49,7 @@ public class Prison extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SubstanceListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
         Bukkit.getPluginManager().registerEvents(new IronKeyListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new RankListener(), this);
     }
 
@@ -58,9 +58,7 @@ public class Prison extends JavaPlugin {
     }
 
     private void init(){ //All startup methods here (excluding events):
-        cmds = new CommandHandler(this);
-        cmds.registerCommands();
-
+        loadConfiguration();
         db = new SQLConnection(getConfig().getString("hostname"), getConfig().getInt("port"), getConfig().getString("database"), getConfig().getString("username"), getConfig().getString("password"));
         try {
             db.openConnection(); } catch(Exception e) {
@@ -68,10 +66,18 @@ public class Prison extends JavaPlugin {
             return;
         }
 
+        cmds = new CommandHandler(this);
+        cmds.registerCommands();
+
         vale = new ValeUtil();
 
         AbstractSubstance.setup();
 
         BlockUtils.resetOres();
+    }
+
+    public void loadConfiguration() {
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 }

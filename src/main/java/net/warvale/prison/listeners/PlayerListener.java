@@ -1,35 +1,24 @@
 package net.warvale.prison.listeners;
 
-import net.warvale.prison.Prison;
+import net.warvale.prison.ranks.RankManager;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 public class PlayerListener implements Listener {
-    private Prison plugin;
-    public PlayerListener(Prison plugin){
-        this.plugin = plugin;
-    }
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
-        Player user = event.getPlayer();
-        //Put player into database
+    public void onDropItem(PlayerDropItemEvent event){
+        Player player = event.getPlayer();
         try {
-            PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT * FROM users_locked WHERE uuid = '"+user.getUniqueId().toString()+"' LIMIT 1");
-            ResultSet set = stmt.executeQuery();
-            if (!set.next()) {
-                stmt.close();
-                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO users_locked (uuid, name) VALUES ('"+user.getUniqueId().toString()+"', '"+user.getName()+"')");
-                stmt.execute();
-                stmt.close();
+            if(RankManager.getGuardLevel(player) == 1 || RankManager.getGuardLevel(player) == 2){
+                player.sendMessage(ChatColor.RED + "Guards and wardens can not drop items!");
+                event.setCancelled(true);
             }
-            set.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

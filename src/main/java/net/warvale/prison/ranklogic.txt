@@ -44,3 +44,9 @@ How to gain exp:
 - Reward 100 exp for every hour of playtime
 
 In the future, gaining exp can also come from owning gangs, beating quests, winning jail-games, etc.
+
+Guards:
+
+- this will clear that players inventory and will give the guard keepinventory and custom items like dyed leather, a weapon or two, and a key to auto open any iron door
+- will make them not allowed to drop items
+- give them a blue/green nametag to show users they are guards
