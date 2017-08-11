@@ -1,0 +1,29 @@
+|======================== KEY ========================|
+
+Item:
+Enchants (if applicable):
+Custom Name:
+Amount (if applicable):
+Lore (if applicable):
+Legal (Y/N): [DO NOT FILL IN: TO BE SET BY ADMIN]
+Chance of finding: [DO NOT FILL IN: TO BE SET BY ADMIN]
+
+Example..
+
+Item: Wood Sword
+Enchants: Sharp I
+Custom Name: Wooden Dagger
+Amount: 1
+Lore: Creates a small wound if used correctly.
+Legal (Y/N): -
+Chance of finding: -
+
+|======================================================|
+
+Item:
+Enchants:
+Custom Name:
+Amount:
+Lore:
+Legal (Y/N):
+Chance of finding:
