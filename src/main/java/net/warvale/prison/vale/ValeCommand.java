@@ -3,12 +3,15 @@ package net.warvale.prison.vale;
 import net.warvale.prison.Prison;
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,25 +20,57 @@ public class ValeCommand extends AbstractCommand {
     private final Prison plugin;
 
     public ValeCommand(Prison plugin) {
-        super("vale","<set/get> <player> [amount (only if its set)]");
+        super("vale", "<set/get> <player> [amount (only for 'set')]");
         this.plugin = plugin; // Store the plugin in situations where you need it.
     }
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-    if (args.length != 2 || args.length != 3) {
-        return false;
-    }
+        if(!(sender instanceof Player)){
+            throw new CommandException("Only players can use this command");
+        }
+        Player player = (Player) sender;
+        if (args.length > 3 || args.length < 2) {
+            return false;
+        }
+        boolean x = false;
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.getName().equals(args[1])) {
+                x = true;
+                break;
+            }
+        }
+        if (!x) {
+            player.sendMessage(ChatColor.RED + "Could not find the specified player.");
+            return true;
+        }
+        Player target = Bukkit.getPlayer(args[1]);
         switch (args[0]) {
             case "get":
                 try {
-                sender.sendMessage(Integer.toString( plugin.getVale().getVale(args[0])));}catch(Exception e){sender.sendMessage("Whoopsy!, something went wrong.");
-                plugin.getLogger().log(Level.WARNING, e.toString());
+                    player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is " + ChatColor.GOLD + Integer.toString(ValeUtil.getVale(target)) + ChatColor.GREEN + "!");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                return true;
+                break;
+            case "set":
+                if(args.length!=3){
+                    return false;
+                }
+                if(!StringUtils.isNumeric(args[2])){
+                    return false;
+                }
+                try {
+                    ValeUtil.setVale(target, Integer.valueOf(args[2]));
+                    player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is now " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
+                    target.sendMessage(ChatColor.GREEN + player.getName() + " set your balance to " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+                break;
         }
 
-        return false;
+        return true;
     }
 
     @Override

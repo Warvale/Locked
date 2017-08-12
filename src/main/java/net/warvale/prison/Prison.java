@@ -28,11 +28,6 @@ public class Prison extends JavaPlugin {
     }
 
     private SQLConnection db;
-    private ValeUtil vale;
-
-    public ValeUtil getVale() {
-        return vale;
-    }
 
     public SQLConnection getDb() {
         return db;
@@ -47,7 +42,7 @@ public class Prison extends JavaPlugin {
         //Register events here:
         Bukkit.getPluginManager().registerEvents(new SubstanceListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
         Bukkit.getPluginManager().registerEvents(new RankListener(), this);
     }
 
@@ -66,8 +61,6 @@ public class Prison extends JavaPlugin {
 
         cmds = new CommandHandler(this);
         cmds.registerCommands();
-
-        vale = new ValeUtil();
 
         AbstractSubstance.setup();
 
