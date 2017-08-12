@@ -22,4 +22,8 @@ commands:
   setstatus:
     description: Set the status of any player (prisoner, guard, warden)
     permission: locked.admin
+  msg:
+    description: Send a player a private message.
+  r:
+    description: Send a message to the last player you messaged or recieved a message from.
 permissions: {}
