@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.warvale.prison</groupId>
-    <artifactId>WarvalePrison</artifactId>
+    <artifactId>Locked</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>

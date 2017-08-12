@@ -23,36 +23,16 @@ public class ValeCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-
-
-        Player target = Bukkit.getServer().getPlayer(args[1]);
+    if (args.length != 2 || args.length != 3) {
+        return false;
+    }
         switch (args[0]) {
-
-
-            case "set":
-                if (Prison.get().getVale().setVale(target, Integer.parseInt( args[2]))) {
-                    sender.sendMessage("Set player " + target.getName() + "/UUID="+target.getUniqueId().toString()+" 's vale amount to " + args[1]);
-                } else {
-                    sender.sendMessage("Something went wrong while doing that!");
-                }
-                break;
             case "get":
-
-                if (target != null) {
-                    try {
-                        Prison.get().getVale().getVale(target);
-                    } catch (Exception ex) {
-                        Prison.get().getLogger().log(Level.WARNING, "Cannot get vales for player: " + target.getName());
-                    }
-                } else sender.sendMessage("Could not find that player!");
-
-                break;
-            case "take":
-                break;
-            case "give":
-                break;
-
-            default: break;
+                try {
+                sender.sendMessage(Integer.toString( plugin.getVale().getVale(args[0])));}catch(Exception e){sender.sendMessage("Whoopsy!, something went wrong.");
+                plugin.getLogger().log(Level.WARNING, e.toString());
+                }
+                return true;
         }
 
         return false;

@@ -11,9 +11,9 @@ import java.util.logging.Level;
 public class ValeUtil {
 
 
-    public boolean setVale(Player p, int amount) {
+    public boolean setVale(String uuid, int amount) {
         try {
-            Prison.get().getDb().executeSQL("UPDATE `vale_eco` SET `amount` = '"+amount+"' WHERE `vale_eco`.`uuid` = "+p.getUniqueId().toString());
+            Prison.get().getDb().executeSQL("UPDATE `vale_eco` SET `amount` = '"+amount+"' WHERE `vale_eco`.`uuid` = "+uuid);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -23,7 +23,7 @@ public class ValeUtil {
             return false;
         }
     }
-    public int getVale(Player p) throws SQLException, ClassNotFoundException {
-                return Prison.get().getDb().querySQL("SELECT * FROM `vale_eco` WHERE `uuid` = '"+p.getUniqueId().toString()+"'").findColumn("amount");
+    public int getVale(String uuid) throws SQLException, ClassNotFoundException {
+                return Prison.get().getDb().querySQL("SELECT * FROM `vale_eco` WHERE `uuid` = '"+uuid+"'").findColumn("amount");
     }
 }
