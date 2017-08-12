@@ -7,13 +7,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.ItemStack;
+
 
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.UUID;
 
 public class PlayerListener implements Listener {
     @EventHandler
