@@ -67,7 +67,7 @@ public class Prison extends JavaPlugin {
         BlockUtils.resetOres();
     }
 
-    public void loadConfiguration() {
+    private void loadConfiguration() {
         getConfig().options().copyDefaults(true);
         saveConfig();
     }

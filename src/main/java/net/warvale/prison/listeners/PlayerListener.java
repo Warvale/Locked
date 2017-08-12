@@ -28,7 +28,7 @@ public class PlayerListener implements Listener {
             ResultSet set = stmt.executeQuery();
             if (!set.next()) {
                 stmt.close();
-                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO vale_eco (uuid, amount) VALUES ('"+player.getUniqueId().toString()+"', 0)");
+                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO vale_eco (uuid, name, amount) VALUES ('"+player.getUniqueId().toString()+"','"+player.getName()+"', 0)");
                 stmt.execute();
                 stmt.close();
             }
