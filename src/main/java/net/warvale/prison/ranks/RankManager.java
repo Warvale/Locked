@@ -117,4 +117,29 @@ public class RankManager {
         }
         return s;
     }
+
+    public boolean isGuard(Player player){
+        try {
+            return (getGuardLevel(player)==1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean isWarden(Player player){
+        try {
+            return (getGuardLevel(player)==2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean isPrisoner(Player player){
+        try {
+            return (getGuardLevel(player)==0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
