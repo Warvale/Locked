@@ -2,13 +2,20 @@ package net.warvale.prison.listeners;
 
 import net.warvale.prison.Prison;
 import net.warvale.prison.ranks.RankManager;
+import net.warvale.prison.vale.ValeUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 
 
 import java.sql.PreparedStatement;
@@ -33,7 +40,7 @@ public class PlayerListener implements Listener {
                 stmt.close();
             }
             set.close();
-
+            ValeUtil.setVale(player, ValeUtil.getVale(player));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,6 +55,9 @@ public class PlayerListener implements Listener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        if(event.getItemDrop().getItemStack().getType().equals(Material.EMERALD)){
+            event.setCancelled(true);
         }
     }
 
@@ -64,4 +74,18 @@ public class PlayerListener implements Listener {
             e.printStackTrace();
         }
     }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
+        if(event.getSlot() == 8){
+            event.setCurrentItem(null);
+            try {
+                ValeUtil.setVale((Player)event.getWhoClicked(), ValeUtil.getVale((Player)event.getWhoClicked()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            event.setCancelled(true);
+        }
+    }
+
 }
