@@ -3,6 +3,7 @@ package net.warvale.prison.commands;
 import net.warvale.prison.Prison;
 import net.warvale.prison.commands.admin.ResetOresCommand;
 import net.warvale.prison.commands.admin.SetStatusCommand;
+import net.warvale.prison.commands.basic.WhoCommand;
 import net.warvale.prison.items.goditems.GiveGodItem;
 import net.warvale.prison.items.substances.GiveSubstance;
 import net.warvale.prison.messages.MSGCommand;
@@ -129,6 +130,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         cmds.add(new MSGCommand());
         cmds.add(new RCommand());
         cmds.add(new PayCommand());
+        cmds.add(new WhoCommand());
 
 
         for (AbstractCommand cmd : cmds) {

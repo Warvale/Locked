@@ -42,7 +42,27 @@ public class RankManager {
         set.next();
         return set.getInt("network_rank");
     }
-
+    //Returns the id of a rank with the name
+    public static int getRankId(String rank) throws SQLException {
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT id FROM ranks_locked WHERE name = '"+rank+"' LIMIT 1");
+        ResultSet set = stmt.executeQuery();
+        set.next();
+        return set.getInt("id");
+    }
+    public static ArrayList<Player> getPlayersInRank(int id)throws SQLException{
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT name FROM users_locked WHERE network_rank="+id);
+        ResultSet set = stmt.executeQuery();
+        set.next();
+        ArrayList<Player> ps = new ArrayList<>();
+        ArrayList<String> st = new ArrayList<>();
+        for(String s : st){
+            ps.add(Bukkit.getPlayer(s));
+        }
+        while(set.next()){
+            st.add(set.getString("name"));
+        }
+        return ps;
+    }
     //Wanted Level:
 
     public static void setWantedLevel(Player player, int level) throws SQLException {

@@ -28,4 +28,6 @@ commands:
     description: Send a message to the last player you messaged or recieved a message from.
   pay:
     description: Pay another player a specified amount of vales.
+  who:
+    description: Show all online players.
 permissions: {}

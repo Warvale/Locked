@@ -59,6 +59,10 @@ public class MSGCommand extends AbstractCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        return new ArrayList<>();
+        ArrayList<String> a = new ArrayList<>();
+        for(Player p : Bukkit.getOnlinePlayers()){
+            a.add(p.getName());
+        }
+        return a;
     }
 }
