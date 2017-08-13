@@ -8,6 +8,7 @@ import net.warvale.prison.items.substances.GiveSubstance;
 import net.warvale.prison.messages.MSGCommand;
 import net.warvale.prison.messages.RCommand;
 import net.warvale.prison.utils.Broadcast;
+import net.warvale.prison.vale.PayCommand;
 import net.warvale.prison.vale.ValeCommand;
 import org.bukkit.command.*;
 
@@ -127,6 +128,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         // Basic
         cmds.add(new MSGCommand());
         cmds.add(new RCommand());
+        cmds.add(new PayCommand());
 
 
         for (AbstractCommand cmd : cmds) {

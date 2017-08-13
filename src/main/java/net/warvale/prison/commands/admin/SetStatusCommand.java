@@ -3,6 +3,7 @@ package net.warvale.prison.commands.admin;
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
 import net.warvale.prison.ranks.RankManager;
+import net.warvale.prison.vale.ValeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -110,6 +111,11 @@ public class SetStatusCommand extends AbstractCommand {
         helmetMeta.setColor(Color.fromRGB(224, 33, 15));
         helmet.setItemMeta(helmetMeta);
         target.getInventory().setHelmet(helmet);
+        try{
+            ValeUtil.setVale(target, ValeUtil.getVale(target));
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     private void setGuardInv(Player target) throws SQLException {

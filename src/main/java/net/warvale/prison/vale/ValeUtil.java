@@ -52,4 +52,11 @@ public class ValeUtil {
         int current = getVale(player);
         setVale(player, current+amount);
     }
+
+    public static void payVale(Player from, Player to, int amount) throws SQLException {
+        int fromBal = getVale(from);
+        int toBal = getVale(to);
+        setVale(from, fromBal - amount);
+        setVale(to, toBal + amount);
+    }
 }

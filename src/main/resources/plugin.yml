@@ -26,4 +26,6 @@ commands:
     description: Send a player a private message.
   r:
     description: Send a message to the last player you messaged or recieved a message from.
+  pay:
+    description: Pay another player a specified amount of vales.
 permissions: {}
