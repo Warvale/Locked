@@ -9,7 +9,6 @@ import net.warvale.prison.listeners.PlayerListener;
 import net.warvale.prison.ranks.RankListener;
 import net.warvale.prison.sql.SQLConnection;
 import net.warvale.prison.utils.BlockUtils;
-import net.warvale.prison.vale.ValeUtil;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 

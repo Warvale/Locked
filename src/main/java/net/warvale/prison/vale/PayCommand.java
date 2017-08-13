@@ -23,7 +23,7 @@ public class PayCommand extends AbstractCommand{
         }
         Player player = (Player) sender;
         try {
-            int playerBal = ValeUtil.getVale(player);
+            int playerBal = ScrapsUtil.getScraps(player);
             if (args.length != 2) {
                 return false;
             }
@@ -44,16 +44,16 @@ public class PayCommand extends AbstractCommand{
             }
             Player target = Bukkit.getPlayer(args[0]);
             if (amount > playerBal) {
-                player.sendMessage(ChatColor.RED + "You do not have " + ChatColor.DARK_RED + String.valueOf(amount) + ChatColor.RED + " vales!");
+                player.sendMessage(ChatColor.RED + "You do not have " + ChatColor.DARK_RED + String.valueOf(amount) + ChatColor.RED + " scraps!");
                 return true;
             }
             if(amount==0){
-                player.sendMessage(ChatColor.RED + "You can not pay " + ChatColor.DARK_RED + "0" + ChatColor.RED + " vales to someone!");
+                player.sendMessage(ChatColor.RED + "You can not pay " + ChatColor.DARK_RED + "0" + ChatColor.RED + " scraps to someone!");
                 return true;
             }
-            ValeUtil.payVale(player, target, amount);
-            player.sendMessage(ChatColor.GREEN + "You payed " + target.getName() + " " +ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " vales!");
-            target.sendMessage(ChatColor.GREEN + "You received " + ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " vales from " + player.getName() + "!");
+            ScrapsUtil.payScraps(player, target, amount);
+            player.sendMessage(ChatColor.GREEN + "You payed " + target.getName() + " " +ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " scraps!");
+            target.sendMessage(ChatColor.GREEN + "You received " + ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " scraps from " + player.getName() + "!");
         } catch (SQLException e){
             e.printStackTrace();
         }

@@ -10,7 +10,7 @@ import net.warvale.prison.messages.MSGCommand;
 import net.warvale.prison.messages.RCommand;
 import net.warvale.prison.utils.Broadcast;
 import net.warvale.prison.vale.PayCommand;
-import net.warvale.prison.vale.ValeCommand;
+import net.warvale.prison.vale.ScrapsCommand;
 import org.bukkit.command.*;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         cmds.add(new ResetOresCommand());
         cmds.add(new GiveGodItem());
         cmds.add(new SetStatusCommand());
-        cmds.add(new ValeCommand(plugin));
+        cmds.add(new ScrapsCommand());
         // Basic
         cmds.add(new MSGCommand());
         cmds.add(new RCommand());

@@ -3,7 +3,7 @@ package net.warvale.prison.commands.admin;
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
 import net.warvale.prison.ranks.RankManager;
-import net.warvale.prison.vale.ValeUtil;
+import net.warvale.prison.vale.ScrapsUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import java.sql.SQLException;
@@ -112,7 +111,7 @@ public class SetStatusCommand extends AbstractCommand {
         helmet.setItemMeta(helmetMeta);
         target.getInventory().setHelmet(helmet);
         try{
-            ValeUtil.setVale(target, ValeUtil.getVale(target));
+            ScrapsUtil.setScraps(target, ScrapsUtil.getScraps(target));
         } catch(SQLException e){
             e.printStackTrace();
         }

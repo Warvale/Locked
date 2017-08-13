@@ -4,9 +4,9 @@ version: 1.0
 author: The Warvale Developers
 description: Warvale Prison Core
 commands:
-  vale:
+  scrap:
     description: Manage the eco
-    usage: /vale <set/get> <player> [amount (only if its set)]
+    usage: /scrap <set/get> <player> [amount (only if its set)]
   givesubstance:
     description: Give a specified player or yourself a specified substance.
     usage: /givedrug <substance> [player]

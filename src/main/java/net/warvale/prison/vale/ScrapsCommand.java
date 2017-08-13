@@ -6,21 +6,16 @@ import net.warvale.prison.commands.CommandException;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
-public class ValeCommand extends AbstractCommand {
-    private final Prison plugin;
-
-    public ValeCommand(Prison plugin) {
-        super("vale", "<set/get> <player> [amount (only for 'set')]");
+public class ScrapsCommand extends AbstractCommand {
+    public ScrapsCommand() {
+        super("scrap", "<set/get> <player> [amount (only for 'set')]");
         this.plugin = plugin; // Store the plugin in situations where you need it.
     }
 
@@ -48,7 +43,7 @@ public class ValeCommand extends AbstractCommand {
         switch (args[0]) {
             case "get":
                 try {
-                    player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is " + ChatColor.GOLD + Integer.toString(ValeUtil.getVale(target)) + ChatColor.GREEN + "!");
+                    player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is " + ChatColor.GOLD + Integer.toString(ScrapsUtil.getScraps(target)) + ChatColor.GREEN + "!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -61,7 +56,7 @@ public class ValeCommand extends AbstractCommand {
                     return false;
                 }
                 try {
-                    ValeUtil.setVale(target, Integer.valueOf(args[2]));
+                    ScrapsUtil.setScraps(target, Integer.valueOf(args[2]));
                     player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is now " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
                     target.sendMessage(ChatColor.GREEN + player.getName() + " set your balance to " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
                 } catch (SQLException e){
@@ -75,6 +70,10 @@ public class ValeCommand extends AbstractCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        return new ArrayList<>();
+        ArrayList<String> a = new ArrayList<>();
+        for(Player p : Bukkit.getOnlinePlayers()){
+            a.add(p.getName());
+        }
+        return a;
     }
 }
