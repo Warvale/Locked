@@ -64,11 +64,11 @@ public class BlockListener implements Listener {
         }
     }
 
-    private boolean inMineLocation(Location loc){
+    public static boolean inMineLocation(Location loc){
         int x = loc.getBlockX();
         int y = loc.getBlockY();
         int z = loc.getBlockZ();
-        return (x>=1348 && x<=1383 && y>=1 && y<=14 && z<=361&&z>=338);
+        return (x>=1347 && x<=1383 && y>=0 && y<=25 && z<=362&&z>=338);
     }
 
 }

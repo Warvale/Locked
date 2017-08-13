@@ -5,6 +5,7 @@ import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.vale.ValeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -85,6 +86,18 @@ public class PlayerListener implements Listener {
                 e.printStackTrace();
             }
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event){
+        Player player = event.getPlayer();
+        if(player.getGameMode() != GameMode.CREATIVE){
+            if(BlockListener.inMineLocation(player.getLocation())){
+                if(player.getGameMode() != GameMode.SURVIVAL){player.setGameMode(GameMode.SURVIVAL);}
+            } else {
+                if(player.getGameMode() != GameMode.ADVENTURE){player.setGameMode(GameMode.ADVENTURE);}
+            }
         }
     }
 
