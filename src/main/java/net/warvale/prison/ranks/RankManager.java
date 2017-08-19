@@ -118,7 +118,7 @@ public class RankManager {
         return s;
     }
 
-    public boolean isGuard(Player player){
+    public static boolean isGuard(Player player){
         try {
             return (getGuardLevel(player)==1);
         } catch (SQLException e) {
@@ -126,7 +126,7 @@ public class RankManager {
         }
         return false;
     }
-    public boolean isWarden(Player player){
+    public static boolean isWarden(Player player){
         try {
             return (getGuardLevel(player)==2);
         } catch (SQLException e) {
@@ -134,12 +134,38 @@ public class RankManager {
         }
         return false;
     }
-    public boolean isPrisoner(Player player){
+    public static boolean isPrisoner(Player player){
         try {
             return (getGuardLevel(player)==0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void updateWantedLevel(Player player) throws SQLException{
+        int exp = player.getTotalExperience();
+        if(exp > 4560370){
+            setWantedLevel(player, 9);
+        } else if(exp > 1245980){
+            setWantedLevel(player, 8);
+        } else if(exp > 452120){
+            setWantedLevel(player, 7);
+        } else if(exp > 162500){
+            setWantedLevel(player, 6);
+        } else if(exp > 45300){
+            setWantedLevel(player, 5);
+        } else if(exp > 10800){
+            setWantedLevel(player, 4);
+        } else if(exp > 2300){
+            setWantedLevel(player, 3);
+        } else if(exp > 500){
+            setWantedLevel(player, 2);
+        } else if(exp < 500){
+            setWantedLevel(player, 1);
+        } else {
+            setWantedLevel(player, 0);
+        }
+
     }
 }

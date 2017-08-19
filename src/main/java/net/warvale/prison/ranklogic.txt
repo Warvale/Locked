@@ -11,7 +11,7 @@ There's three different rank levels;
 - Every time you get a new corruption point, it will display like so:
 
 ---
-[NETWORK LEVEL] [3⋆] [PRISON-RANK LEVEL {if applicable}] Username: Chat
+[NETWORK LEVEL] [3⋆] [PRISON-RANK LEVEL {if applicable}] Username: Chat {DONE}
 ---
 
 Here is an example;
@@ -23,7 +23,7 @@ Explained:
 [6⋆] how many wanted levels he has
 ❈ his warden star
 
-Wanted star levels:
+Wanted star levels: {DONE}
 
 1⋆ unlocked by default
 2⋆ 500exp
@@ -37,7 +37,7 @@ Wanted star levels:
 
 How to gain exp:
 
-- Take the cost (in vales) of an item when purchased; subtract half, add that to a user's exp
+- Take the cost (in vales) of an item when purchased; divide by 2, add that to a user's exp
 - Give 500 exp when beating the warehouse
 - Give 2000 exp when killing a guard
 - Give 250 exp when killing a player
@@ -47,6 +47,6 @@ In the future, gaining exp can also come from owning gangs, beating quests, winn
 
 Guards:
 
-- this will clear that players inventory and will give the guard keepinventory and custom items like dyed leather, a weapon or two, and a key to auto open any iron door
-- will make them not allowed to drop items
-- give them a blue/green nametag to show users they are guards
+- this will clear that players inventory and will give the guard keepinventory and custom items like dyed leather, a weapon or two, and a key to auto open any iron door {PARTIALLY DONE}
+- will make them not allowed to drop items {DONE}
+- give them a blue/green nametag to show users they are guards {NOT DONE YET}
