@@ -30,6 +30,7 @@ public class BlockListener implements Listener {
         if(!player.getGameMode().equals(GameMode.CREATIVE)){
             if(inMineLocation(loc)){
                 if(block.getType().equals(Material.COAL_ORE)){
+                    event.setExpToDrop(0);
                     new BukkitRunnable() {
 
                         @Override
@@ -39,6 +40,7 @@ public class BlockListener implements Listener {
 
                     }.runTaskLater(this.plugin, 1200);
                 } else if(block.getType().equals(Material.IRON_ORE)){
+                    event.setExpToDrop(0);
                     new BukkitRunnable() {
 
                         @Override
@@ -50,6 +52,7 @@ public class BlockListener implements Listener {
                 } else if(block.getType().equals(Material.DIAMOND_ORE)){
                     event.setCancelled(true);
                     block.setType(Material.AIR);
+                    event.setExpToDrop(0);
                     loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.DIAMOND_ORE));
                     new BukkitRunnable() {
 

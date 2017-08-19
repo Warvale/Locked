@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 
 import java.sql.PreparedStatement;
@@ -42,6 +43,12 @@ public class PlayerListener implements Listener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        plugin.retrievePlayTime(player);
+    }
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        plugin.savePlayTime(player);
     }
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {

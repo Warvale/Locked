@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.sql.SQLException;
@@ -25,6 +26,18 @@ public class RankListener implements Listener {
         }
         for(Player p : event.getRecipients()){
             p.sendMessage(playerNameWithPrefixSuffix + ChatColor.WHITE + message);
+        }
+    }
+    @EventHandler
+    public void onKill(PlayerDeathEvent event){
+        Player target = event.getEntity();
+        Player killer = target.getKiller();
+        if(RankManager.isPrisoner(killer)){
+            if(RankManager.isPrisoner(target)){
+                killer.setTotalExperience(killer.getTotalExperience() + 250);
+            } else if(RankManager.isGuard(target) || RankManager.isWarden(target)){
+                killer.setTotalExperience(killer.getTotalExperience() + 2000);
+            }
         }
     }
 }
