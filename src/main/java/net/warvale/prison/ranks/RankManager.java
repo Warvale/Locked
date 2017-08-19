@@ -42,32 +42,40 @@ public class RankManager {
         set.next();
         return set.getInt("network_rank");
     }
-    //Returns the id of a rank with the name
-    public static int getRankId(String rank) throws SQLException {
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT id FROM ranks_locked WHERE name = '"+rank+"' LIMIT 1");
-        ResultSet set = stmt.executeQuery();
-        set.next();
-        return set.getInt("id");
-    }
-    public static ArrayList<Player> getPlayersInRank(int id)throws SQLException{
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT name FROM users_locked WHERE network_rank="+id);
-        ResultSet set = stmt.executeQuery();
-        set.next();
-        ArrayList<Player> ps = new ArrayList<>();
-        ArrayList<String> st = new ArrayList<>();
-        for(String s : st){
-            ps.add(Bukkit.getPlayer(s));
-        }
-        while(set.next()){
-            st.add(set.getString("name"));
-        }
-        return ps;
-    }
     //Wanted Level:
 
     public static void setWantedLevel(Player player, int level) throws SQLException {
         PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("UPDATE users_locked SET locked_wanted="+level+" WHERE uuid = '"+player.getUniqueId()+"'");
         stmt.executeUpdate();
+        switch(level){
+            case 1:
+                player.setTotalExperience(0);
+                break;
+            case 2:
+                player.setTotalExperience(500);
+                break;
+            case 3:
+                player.setTotalExperience(2300);
+                break;
+            case 4:
+                player.setTotalExperience(10800);
+                break;
+            case 5:
+                player.setTotalExperience(45300);
+                break;
+            case 6:
+                player.setTotalExperience(162500);
+                break;
+            case 7:
+                player.setTotalExperience(452120);
+                break;
+            case 8:
+                player.setTotalExperience(1245980);
+                break;
+            case 9:
+                player.setTotalExperience(4560370);
+                break;
+        }
     }
 
     public static int getWantedLevel(Player player) throws SQLException {
@@ -86,6 +94,29 @@ public class RankManager {
         sb.append(String.valueOf(level));
         sb.append("⋆");
         return sb.toString();
+    }
+    public static void updateWantedLevel(Player player) throws SQLException{
+        int exp = player.getTotalExperience();
+        if(exp >= 4560370){
+            setWantedLevel(player, 9);
+        } else if(exp >= 1245980){
+            setWantedLevel(player, 8);
+        } else if(exp >= 452120){
+            setWantedLevel(player, 7);
+        } else if(exp >= 162500){
+            setWantedLevel(player, 6);
+        } else if(exp >= 45300){
+            setWantedLevel(player, 5);
+        } else if(exp >= 10800){
+            setWantedLevel(player, 4);
+        } else if(exp >= 2300){
+            setWantedLevel(player, 3);
+        } else if(exp >= 500){
+            setWantedLevel(player, 2);
+        } else {
+            setWantedLevel(player, 1);
+        }
+
     }
 
     //Guard Level:
@@ -141,31 +172,5 @@ public class RankManager {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static void updateWantedLevel(Player player) throws SQLException{
-        int exp = player.getTotalExperience();
-        if(exp > 4560370){
-            setWantedLevel(player, 9);
-        } else if(exp > 1245980){
-            setWantedLevel(player, 8);
-        } else if(exp > 452120){
-            setWantedLevel(player, 7);
-        } else if(exp > 162500){
-            setWantedLevel(player, 6);
-        } else if(exp > 45300){
-            setWantedLevel(player, 5);
-        } else if(exp > 10800){
-            setWantedLevel(player, 4);
-        } else if(exp > 2300){
-            setWantedLevel(player, 3);
-        } else if(exp > 500){
-            setWantedLevel(player, 2);
-        } else if(exp < 500){
-            setWantedLevel(player, 1);
-        } else {
-            setWantedLevel(player, 0);
-        }
-
     }
 }
