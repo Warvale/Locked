@@ -19,6 +19,8 @@ public class RankListener implements Listener {
         try {
             if(RankManager.isPrisoner(player)){
                 RankManager.updateWantedLevel(player);
+            } else if(RankManager.isGuard(player) || RankManager.isWarden(player)){
+                RankManager.setWantedLevel(player, 0);
             }
             playerNameWithPrefixSuffix = ChatColor.translateAlternateColorCodes('&', (!RankManager.getRankPrefix(player).equals(" ")?RankManager.getRankPrefix(player) : "") + ChatColor.GRAY + RankManager.wantedLevelParser(RankManager.getWantedLevel(player)) + ChatColor.GOLD  + RankManager.guardLevelParser(RankManager.getGuardLevel(player)) + RankManager.getRankNameColor(player) +" "+ player.getName() +(!RankManager.getRankSuffix(player).equals(" ")? " "+ RankManager.getRankSuffix(player) : "") + ChatColor.GRAY + ": ");
         } catch (SQLException e) {
