@@ -117,7 +117,7 @@ public class Prison extends JavaPlugin {
             public void run() {
                 for(UUID uuid : playtime.keySet()){
                     playtime.put(uuid, playtime.get(uuid)+1);
-                    if(playtime.get(uuid) % 60 == 0){
+                    if(playtime.get(uuid) % 3600 == 0){
                         Bukkit.getPlayer(uuid).setTotalExperience(Bukkit.getPlayer(uuid).getTotalExperience() + 100);
                     }
                 }

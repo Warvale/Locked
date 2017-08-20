@@ -48,8 +48,11 @@ public class RankManager {
         PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("UPDATE users_locked SET locked_wanted="+level+" WHERE uuid = '"+player.getUniqueId()+"'");
         stmt.executeUpdate();
         switch(level){
-            case 1:
+            case 0:
                 player.setTotalExperience(0);
+                break;
+            case 1:
+                player.setTotalExperience(1);
                 break;
             case 2:
                 player.setTotalExperience(500);
@@ -113,8 +116,10 @@ public class RankManager {
             setWantedLevel(player, 3);
         } else if(exp >= 500){
             setWantedLevel(player, 2);
-        } else {
+        } else if(exp>=1){
             setWantedLevel(player, 1);
+        } else {
+            setWantedLevel(player, 0);
         }
 
     }
