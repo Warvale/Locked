@@ -7,6 +7,7 @@ import net.warvale.prison.items.substances.SubstanceListener;
 import net.warvale.prison.listeners.BlockListener;
 import net.warvale.prison.listeners.PlayerListener;
 import net.warvale.prison.ranks.RankListener;
+import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.sql.SQLConnection;
 import net.warvale.prison.utils.BlockUtils;
 import org.bukkit.*;
@@ -118,7 +119,9 @@ public class Prison extends JavaPlugin {
                 for(UUID uuid : playtime.keySet()){
                     playtime.put(uuid, playtime.get(uuid)+1);
                     if(playtime.get(uuid) % 3600 == 0){
-                        Bukkit.getPlayer(uuid).setTotalExperience(Bukkit.getPlayer(uuid).getTotalExperience() + 100);
+                        if(RankManager.isPrisoner(Bukkit.getPlayer(uuid))){
+                            Bukkit.getPlayer(uuid).setTotalExperience(Bukkit.getPlayer(uuid).getTotalExperience() + 100);
+                        }
                     }
                 }
             }
