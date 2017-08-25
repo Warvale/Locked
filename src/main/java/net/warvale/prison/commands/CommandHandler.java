@@ -8,6 +8,7 @@ import net.warvale.prison.items.goditems.GiveGodItem;
 import net.warvale.prison.items.substances.GiveSubstance;
 import net.warvale.prison.messages.MSGCommand;
 import net.warvale.prison.messages.RCommand;
+import net.warvale.prison.npcs.merchants.MerchantCommand;
 import net.warvale.prison.utils.Broadcast;
 import net.warvale.prison.vale.PayCommand;
 import net.warvale.prison.vale.ScrapsCommand;
@@ -126,6 +127,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         cmds.add(new GiveGodItem());
         cmds.add(new SetStatusCommand());
         cmds.add(new ScrapsCommand());
+        cmds.add(new MerchantCommand());
         // Basic
         cmds.add(new MSGCommand());
         cmds.add(new RCommand());

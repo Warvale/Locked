@@ -30,4 +30,7 @@ commands:
     description: Pay another player a specified amount of vales.
   who:
     description: Show all online players.
+  shopnpc:
+    description: Every command involving a shop npc.
+    permission: locked.admin
 permissions: {}
