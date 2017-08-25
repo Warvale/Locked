@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,8 @@ public class Prison extends JavaPlugin {
     private static Prison instance;
 
     private static CommandHandler cmds;
+
+    private File path = new File(this.getDataFolder() + "");
 
     private static World world = Bukkit.getWorld("world");
 
@@ -41,6 +44,8 @@ public class Prison extends JavaPlugin {
     }
 
     public static World getWorld(){return world;}
+
+    public File getPath(){return this.path;}
 
     private HashMap<UUID, Integer> playtime = new HashMap<>();
 
