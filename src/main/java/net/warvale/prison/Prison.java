@@ -12,9 +12,8 @@ import net.warvale.prison.ranks.RankListener;
 import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.sql.SQLConnection;
 import net.warvale.prison.utils.BlockUtils;
-import org.bukkit.*;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,7 +34,7 @@ public class Prison extends JavaPlugin {
 
     private static CommandHandler cmds;
 
-    private File path = new File(this.getDataFolder() + "");
+    private File path = new File(this.getDataFolder() + "/merchantnpcs.json");
 
     private static World world = Bukkit.getWorld("world");
 
@@ -49,9 +48,13 @@ public class Prison extends JavaPlugin {
         return db;
     }
 
-    public static World getWorld(){return world;}
+    public static World getWorld() {
+        return world;
+    }
 
-    public File getPath(){return this.path;}
+    public File getPath() {
+        return this.path;
+    }
 
     private HashMap<UUID, Integer> playtime = new HashMap<>();
 
@@ -69,18 +72,19 @@ public class Prison extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for(Player player : Bukkit.getOnlinePlayers()){
+        for (Player player : Bukkit.getOnlinePlayers()) {
             savePlayTime(player);
         }
         playtime.clear();
     }
 
-    private void init(){ //All startup methods here (excluding events):
+    private void init() { //All startup methods here (excluding events):
         loadConfiguration();
         db = new SQLConnection(getConfig().getString("hostname"), getConfig().getInt("port"), getConfig().getString("database"), getConfig().getString("username"), getConfig().getString("password"));
         try {
-            db.openConnection(); } catch(Exception e) {
-            getLogger().log(Level.WARNING, "Could not establish connection to database, exception: "+e);
+            db.openConnection();
+        } catch (Exception e) {
+            getLogger().log(Level.WARNING, "Could not establish connection to database, exception: " + e);
             return;
         }
 
@@ -101,23 +105,23 @@ public class Prison extends JavaPlugin {
         saveConfig();
     }
 
-    public void retrievePlayTime(Player player){
+    public void retrievePlayTime(Player player) {
         PreparedStatement stmt;
         int x = 0;
         try {
-            stmt = getDb().getConnection().prepareStatement("SELECT playtime FROM users_locked WHERE uuid = '"+player.getUniqueId()+"' LIMIT 1");
+            stmt = getDb().getConnection().prepareStatement("SELECT playtime FROM users_locked WHERE uuid = '" + player.getUniqueId() + "' LIMIT 1");
             ResultSet set = stmt.executeQuery();
             set.next();
-            x=set.getInt("playtime");
+            x = set.getInt("playtime");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         playtime.put(player.getUniqueId(), x);
     }
 
-    public void savePlayTime(Player player){
+    public void savePlayTime(Player player) {
         try {
-            PreparedStatement stmt = getDb().getConnection().prepareStatement("UPDATE users_locked SET playtime="+playtime.get(player.getUniqueId())+" WHERE uuid = '"+player.getUniqueId()+"'");
+            PreparedStatement stmt = getDb().getConnection().prepareStatement("UPDATE users_locked SET playtime=" + playtime.get(player.getUniqueId()) + " WHERE uuid = '" + player.getUniqueId() + "'");
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,15 +129,15 @@ public class Prison extends JavaPlugin {
         playtime.remove(player.getUniqueId());
     }
 
-    private void playTimeCounter(){
-        new BukkitRunnable(){
+    private void playTimeCounter() {
+        new BukkitRunnable() {
 
             @Override
             public void run() {
-                for(UUID uuid : playtime.keySet()){
-                    playtime.put(uuid, playtime.get(uuid)+1);
-                    if(playtime.get(uuid) % 3600 == 0){
-                        if(RankManager.isPrisoner(Bukkit.getPlayer(uuid))){
+                for (UUID uuid : playtime.keySet()) {
+                    playtime.put(uuid, playtime.get(uuid) + 1);
+                    if (playtime.get(uuid) % 3600 == 0) {
+                        if (RankManager.isPrisoner(Bukkit.getPlayer(uuid))) {
                             Bukkit.getPlayer(uuid).setTotalExperience(Bukkit.getPlayer(uuid).getTotalExperience() + 100);
                         }
                     }
@@ -144,8 +148,8 @@ public class Prison extends JavaPlugin {
 
     private static ArrayList<Villager> npcs = new ArrayList<>();
 
-    private static void setupNPCs(){
-        for(String name : MerchantManager.getAllNPCs()) {
+    private static void setupNPCs() {
+        for (String name : MerchantManager.getAllNPCs()) {
             Villager npc = getWorld().spawn(MerchantManager.getLocation(name), Villager.class);
             npc.setCustomName(name); //change name here
             npc.setCustomNameVisible(true);
@@ -157,10 +161,10 @@ public class Prison extends JavaPlugin {
 
     }
 
-    public static void resetupNPC(String namee){
+    public static void resetupNPC(String namee) {
         killNPC(namee);
-        for(String name : MerchantManager.getAllNPCs()) {
-            if(name.equals(namee)) {
+        for (String name : MerchantManager.getAllNPCs()) {
+            if (name.equals(namee)) {
                 Villager npc = getWorld().spawn(MerchantManager.getLocation(name), Villager.class);
                 npc.setCustomName(name); //change name here
                 npc.setCustomNameVisible(true);
@@ -174,26 +178,26 @@ public class Prison extends JavaPlugin {
 
     }
 
-    public static void resetupNPCs(){
+    public static void resetupNPCs() {
         killAllNPCs();
         setupNPCs();
     }
 
     public static void killAllNPCs() {
-        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)){
-            if(npc == null) continue;
+        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)) {
+            if (npc == null) continue;
             npc.setHealth(0);
         }
         npcs.clear();
     }
 
-    public static void killNPC(String name){
-        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)){
-            if(npc == null) continue;
-            if(npc.getName().equals(name)) npc.setHealth(0);
+    public static void killNPC(String name) {
+        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)) {
+            if (npc == null) continue;
+            if (npc.getName().equals(name)) npc.setHealth(0);
         }
-        for(Villager npc : npcs){
-            if (npc.getName().equals(name)){
+        for (Villager npc : npcs) {
+            if (npc.getName().equals(name)) {
                 npcs.remove(npc);
                 break;
             }
