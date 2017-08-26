@@ -33,4 +33,7 @@ commands:
   shopnpc:
     description: Every command involving a shop npc.
     permission: locked.admin
+  npc:
+    description: Reset npcs.
+    permission: locked.admin
 permissions: {}

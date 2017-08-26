@@ -7,12 +7,16 @@ import net.warvale.prison.items.substances.SubstanceListener;
 import net.warvale.prison.listeners.BlockListener;
 import net.warvale.prison.listeners.PlayerListener;
 import net.warvale.prison.npcs.merchants.MerchantListener;
+import net.warvale.prison.npcs.merchants.MerchantManager;
 import net.warvale.prison.ranks.RankListener;
 import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.sql.SQLConnection;
 import net.warvale.prison.utils.BlockUtils;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -20,11 +24,12 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
-
+@SuppressWarnings("depreciated")
 public class Prison extends JavaPlugin {
     private static Prison instance;
 
@@ -87,6 +92,8 @@ public class Prison extends JavaPlugin {
         BlockUtils.resetOres();
 
         playTimeCounter();
+
+        resetupNPCs();
     }
 
     private void loadConfiguration() {
@@ -133,5 +140,63 @@ public class Prison extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 0, 20);
+    }
+
+    private static ArrayList<Villager> npcs = new ArrayList<>();
+
+    private static void setupNPCs(){
+        for(String name : MerchantManager.getAllNPCs()) {
+            Villager npc = getWorld().spawn(MerchantManager.getLocation(name), Villager.class);
+            npc.setCustomName(name); //change name here
+            npc.setCustomNameVisible(true);
+            npc.setAI(false);
+            npc.setInvulnerable(true);
+            npc.setProfession(Villager.Profession.BLACKSMITH);
+            npcs.add(npc);
+        }
+
+    }
+
+    public static void resetupNPC(String namee){
+        killNPC(namee);
+        for(String name : MerchantManager.getAllNPCs()) {
+            if(name.equals(namee)) {
+                Villager npc = getWorld().spawn(MerchantManager.getLocation(name), Villager.class);
+                npc.setCustomName(name); //change name here
+                npc.setCustomNameVisible(true);
+                npc.setAI(false);
+                npc.setInvulnerable(true);
+                npc.setProfession(Villager.Profession.BLACKSMITH);
+                npcs.add(npc);
+                break;
+            }
+        }
+
+    }
+
+    public static void resetupNPCs(){
+        killAllNPCs();
+        setupNPCs();
+    }
+
+    public static void killAllNPCs() {
+        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)){
+            if(npc == null) continue;
+            npc.setHealth(0);
+        }
+        npcs.clear();
+    }
+
+    public static void killNPC(String name){
+        for (Villager npc : getWorld().getEntitiesByClass(Villager.class)){
+            if(npc == null) continue;
+            if(npc.getName().equals(name)) npc.setHealth(0);
+        }
+        for(Villager npc : npcs){
+            if (npc.getName().equals(name)){
+                npcs.remove(npc);
+                break;
+            }
+        }
     }
 }
