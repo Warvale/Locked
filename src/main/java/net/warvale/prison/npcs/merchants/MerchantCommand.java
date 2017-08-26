@@ -165,11 +165,11 @@ public class MerchantCommand extends AbstractCommand {
                 player.sendMessage(ChatColor.GREEN + "All NPCs:");
                 StringBuilder sbbb = new StringBuilder();
                 for(String s : MerchantManager.getAllNPCs()){
-                    sbbb.append(s);
-                    sbbb.append(",");
+                    sbbb.append(ChatColor.GREEN + s);
+                    sbbb.append(ChatColor.GOLD + ",");
                     sbbb.append(" ");
                 }
-                sbbb.deleteCharAt(sbbb.length()-2);
+                sbbb.deleteCharAt(sbbb.length()-2); //Remove the final comma
                 String messageee = sbbb.toString();
                 player.sendMessage(ChatColor.GREEN + messageee);
                 break;

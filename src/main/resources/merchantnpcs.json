@@ -1,0 +1,31 @@
+{
+	"npcs": [
+      {
+        "name": "someName",
+        "someName": {
+          "location": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "world": "world"
+          },
+          "price": 10,
+          "item": {
+            "itemname": "example",
+            "material": "coal",
+            "lore": [
+              {"line": "This is"},
+              {"line": " a test"}
+            ],
+            "enchants" : [
+              {"enchant": "sharpness", "level" : 1},
+              {"enchant": "unbreaking", "level" : 1}
+            ]
+          },
+          "denial": "You can not afford this item!",
+          "success": "Successfully purchased item!",
+          "colorcode": "&f"
+        }
+      }
+    ]
+}
