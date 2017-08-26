@@ -19,17 +19,110 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("all")
 public class MerchantManager {
     private static Prison plugin = Prison.get();
 
     public static void createNPC(String name, Player creator){
+        Location location = creator.getLocation();
+        double x = location.getX();
+        double y = location.getY();
+        double z = location.getZ();
+        String world = location.getWorld().getName();
+        try{
+            for(File file : plugin.getPath().listFiles()){
+                JSONParser parser = new JSONParser();
+                Object parsed = parser.parse(new FileReader(file.getPath()));
+                JSONObject jsonObject = (JSONObject) parsed;
+                JSONArray npcsArray = (JSONArray) jsonObject.get("npcs");
 
+                JSONObject locationObject = new JSONObject();
+                locationObject.put("x", x);
+                locationObject.put("y", y);
+                locationObject.put("z", z);
+                locationObject.put("world", world);
+
+                JSONArray loreArray = new JSONArray();
+                JSONObject loreLineObject = new JSONObject();
+                loreLineObject.put("line", "Example");
+                loreArray.add(loreLineObject);
+
+                JSONArray enchantArray = new JSONArray();
+                JSONObject enchantObject = new JSONObject();
+                enchantObject.put("enchant", "sharpness");
+                enchantObject.put("level", 1);
+                enchantArray.add(enchantObject);
+
+                JSONObject itemObject = new JSONObject();
+                itemObject.put("itemname", "example");
+                itemObject.put("material", "coal");
+                itemObject.put("lore", loreArray);
+                itemObject.put("enchants", enchantArray);
+
+                JSONObject npcObject = new JSONObject();
+                npcObject.put("location", locationObject);
+                npcObject.put("price", 10);
+                npcObject.put("item", itemObject);
+                npcObject.put("denial", "You can not afford this item!");
+                npcObject.put("success", "Successfully purchased item!");
+                npcObject.put("colorcode", "&f");
+
+                JSONObject mainObject = new JSONObject();
+                mainObject.put("name", name);
+                mainObject.put(name, npcObject);
+
+                npcsArray.add(mainObject);
+            }
+        }catch(ParseException | IOException e){
+            e.printStackTrace();
+        }
     }
     public static void deleteNPC(String name){
-
+        try {
+            for (File file : plugin.getPath().listFiles()) {
+                JSONParser parser = new JSONParser();
+                Object parsed = parser.parse(new FileReader(file.getPath()));
+                JSONObject jsonObject = (JSONObject) parsed;
+                JSONArray npcsArray = (JSONArray) jsonObject.get("npcs");
+                JSONObject npcObject = (JSONObject) jsonObject.get("");
+                for (int i = 0; i<npcsArray.size(); i++) {
+                    JSONObject a = (JSONObject) npcsArray.get(i);
+                    if (a.get("name") == name) {
+                        npcsArray.remove(a);
+                        break;
+                    }
+                }
+            }
+        } catch (ParseException | IOException e){
+            e.printStackTrace();
+        }
     }
     public static void renameNPC(String oldName, String newName){
+        try {
+            for (File file : plugin.getPath().listFiles()) {
+                JSONParser parser = new JSONParser();
+                Object parsed = parser.parse(new FileReader(file.getPath()));
+                JSONObject jsonObject = (JSONObject) parsed;
+                JSONArray npcsArray = (JSONArray) jsonObject.get("npcs");
+                JSONObject npcObject = (JSONObject) jsonObject.get("");
+                for (int i = 0; i<npcsArray.size(); i++) {
+                    JSONObject a = (JSONObject) npcsArray.get(i);
+                    if (a.get("name") == oldName) {
+                        npcObject =(JSONObject) a.get(oldName);
+                        npcsArray.remove(a);
+                        break;
+                    }
+                }
+                JSONObject mainObject = new JSONObject();
+                mainObject.put("name", newName);
+                mainObject.put(newName, npcObject);
 
+                npcsArray.add(mainObject);
+
+            }
+        } catch (ParseException | IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static void setLocation(Location location, String npc){
@@ -47,7 +140,7 @@ public class MerchantManager {
                 for(Object a : npcsArray){
                     JSONObject aa = (JSONObject) a;
                     if(aa.get("name")==npc){
-                        npcObject =( JSONObject) aa.get(npc);
+                        npcObject =(JSONObject) aa.get(npc);
                         break;
                     }
                 }
