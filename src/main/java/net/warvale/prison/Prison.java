@@ -6,6 +6,7 @@ import net.warvale.prison.items.substances.AbstractSubstance;
 import net.warvale.prison.items.substances.SubstanceListener;
 import net.warvale.prison.listeners.BlockListener;
 import net.warvale.prison.listeners.PlayerListener;
+import net.warvale.prison.npcs.merchants.MerchantListener;
 import net.warvale.prison.ranks.RankListener;
 import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.sql.SQLConnection;
@@ -58,6 +59,7 @@ public class Prison extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
         Bukkit.getPluginManager().registerEvents(new RankListener(), this);
+        Bukkit.getPluginManager().registerEvents(new MerchantListener(), this);
     }
 
     @Override

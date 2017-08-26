@@ -35,6 +35,14 @@ public class MerchantCommand extends AbstractCommand {
                     player.sendMessage(ChatColor.RED + "There is already an NPC by the name " + args[1] + "!");
                     return true;
                 }
+                if(args[1].equals("name")){
+                    player.sendMessage(ChatColor.RED + "The NPC's name can not be \"name\"!");
+                    return true;
+                }
+                if(!StringUtils.isAlpha(args[1])){
+                    player.sendMessage(ChatColor.RED + "The NPC's name can not include numbers or symbols!");
+                    return true;
+                }
                 MerchantManager.createNPC(args[1], player);
                 player.sendMessage(ChatColor.GREEN + "Successfully created the NPC " + args[1] + "!");
                 break;
