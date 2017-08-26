@@ -13,16 +13,16 @@ import org.bukkit.inventory.ItemStack;
 
 public class SubstanceListener implements Listener {
     @EventHandler
-    public void playerInteract(PlayerInteractEvent event){
+    public void playerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        if(item != null) {
+        if (item != null) {
             ItemStack itemR = new ItemStack(item.getType(), 1);
             itemR.setItemMeta(item.getItemMeta());
-            for (AbstractSubstance d : AbstractSubstance.getSubstances()){
-                if (d.getItemStack().getType().equals(item.getType())){
+            for (AbstractSubstance d : AbstractSubstance.getSubstances()) {
+                if (d.getItemStack().getType().equals(item.getType())) {
                     d.effect(player);
-                    if(!player.getGameMode().equals(GameMode.CREATIVE)){
+                    if (!player.getGameMode().equals(GameMode.CREATIVE)) {
                         player.getInventory().removeItem(itemR);
                         player.updateInventory();
                     }

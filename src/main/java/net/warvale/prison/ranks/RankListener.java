@@ -11,33 +11,34 @@ import java.sql.SQLException;
 
 public class RankListener implements Listener {
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent event){
+    public void onChat(AsyncPlayerChatEvent event) {
         event.setCancelled(true);
         Player player = event.getPlayer();
         String message = event.getMessage();
         String playerNameWithPrefixSuffix = ChatColor.RED + "(ERROR FORMATTING NAME) " + ChatColor.WHITE + player.getName() + ": ";
         try {
-            if(RankManager.isPrisoner(player)){
+            if (RankManager.isPrisoner(player)) {
                 RankManager.updateWantedLevel(player);
-            } else if(RankManager.isGuard(player) || RankManager.isWarden(player)){
+            } else if (RankManager.isGuard(player) || RankManager.isWarden(player)) {
                 RankManager.setWantedLevel(player, 0);
             }
-            playerNameWithPrefixSuffix = ChatColor.translateAlternateColorCodes('&', (!RankManager.getRankPrefix(player).equals(" ")?RankManager.getRankPrefix(player) : "") + ChatColor.GRAY + RankManager.wantedLevelParser(RankManager.getWantedLevel(player)) + ChatColor.GOLD  + RankManager.guardLevelParser(RankManager.getGuardLevel(player)) + RankManager.getRankNameColor(player) +" "+ player.getName() +(!RankManager.getRankSuffix(player).equals(" ")? " "+ RankManager.getRankSuffix(player) : "") + ChatColor.GRAY + ": ");
+            playerNameWithPrefixSuffix = ChatColor.translateAlternateColorCodes('&', (!RankManager.getRankPrefix(player).equals(" ") ? RankManager.getRankPrefix(player) : "") + ChatColor.GRAY + RankManager.wantedLevelParser(RankManager.getWantedLevel(player)) + ChatColor.GOLD + RankManager.guardLevelParser(RankManager.getGuardLevel(player)) + RankManager.getRankNameColor(player) + " " + player.getName() + (!RankManager.getRankSuffix(player).equals(" ") ? " " + RankManager.getRankSuffix(player) : "") + ChatColor.GRAY + ": ");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(Player p : event.getRecipients()){
+        for (Player p : event.getRecipients()) {
             p.sendMessage(playerNameWithPrefixSuffix + ChatColor.WHITE + message);
         }
     }
+
     @EventHandler
-    public void onKill(PlayerDeathEvent event){
+    public void onKill(PlayerDeathEvent event) {
         Player target = event.getEntity();
         Player killer = target.getKiller();
-        if(RankManager.isPrisoner(killer)){
-            if(RankManager.isPrisoner(target)){
+        if (RankManager.isPrisoner(killer)) {
+            if (RankManager.isPrisoner(target)) {
                 killer.setTotalExperience(killer.getTotalExperience() + 250);
-            } else if(RankManager.isGuard(target) || RankManager.isWarden(target)){
+            } else if (RankManager.isGuard(target) || RankManager.isWarden(target)) {
                 killer.setTotalExperience(killer.getTotalExperience() + 2000);
             }
         }

@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Coco extends AbstractSubstance {
 
-    public Coco(){
+    public Coco() {
         super(3, "Coco", Material.COCOA, ChatColor.RED);
     }
 

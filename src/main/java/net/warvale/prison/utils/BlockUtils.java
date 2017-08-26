@@ -6,7 +6,7 @@ import org.bukkit.Material;
 
 public class BlockUtils {
 
-    public static void resetOres(){
+    public static void resetOres() {
         coal(1349, 3, 351);
         coal(1353, 3, 359);
         coal(1353, 5, 355);
@@ -60,15 +60,15 @@ public class BlockUtils {
 
     }
 
-    private static void coal(int x, int y, int z){
+    private static void coal(int x, int y, int z) {
         new Location(Prison.getWorld(), x, y, z).getBlock().setType(Material.COAL_ORE);
     }
 
-    private static void iron(int x, int y, int z){
+    private static void iron(int x, int y, int z) {
         new Location(Prison.getWorld(), x, y, z).getBlock().setType(Material.IRON_ORE);
     }
 
-    private static void diamond(int x, int y, int z){
+    private static void diamond(int x, int y, int z) {
         new Location(Prison.getWorld(), x, y, z).getBlock().setType(Material.DIAMOND_ORE);
     }
 }

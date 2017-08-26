@@ -28,21 +28,21 @@ public class Broadcast {
     }
 
     public static void toPlayer(Player player, BroadcastType broadcastType, String message) {
-        if(broadcastType == BroadcastType.SUCCESS) {
+        if (broadcastType == BroadcastType.SUCCESS) {
             player.sendMessage(ChatColor.DARK_GREEN + "[WarvalePrison] " + ChatColor.GREEN + message);
-        } else if(broadcastType == BroadcastType.FAILURE) {
+        } else if (broadcastType == BroadcastType.FAILURE) {
             player.sendMessage(ChatColor.DARK_RED + "[WarvalePrison] " + ChatColor.RED + message);
-        } else if(broadcastType == BroadcastType.BASIC) {
+        } else if (broadcastType == BroadcastType.BASIC) {
             player.sendMessage(ChatColor.GOLD + "[WarvalePrison] " + ChatColor.YELLOW + message);
         }
     }
 
     public static void toSender(CommandSender sender, BroadcastType broadcastType, String message) {
-        if(broadcastType == BroadcastType.SUCCESS) {
+        if (broadcastType == BroadcastType.SUCCESS) {
             sender.sendMessage(ChatColor.DARK_GREEN + "[WarvalePrison] " + ChatColor.GREEN + message);
-        } else if(broadcastType == BroadcastType.FAILURE) {
+        } else if (broadcastType == BroadcastType.FAILURE) {
             sender.sendMessage(ChatColor.DARK_RED + "[WarvalePrison] " + ChatColor.RED + message);
-        } else if(broadcastType == BroadcastType.BASIC) {
+        } else if (broadcastType == BroadcastType.BASIC) {
             sender.sendMessage(ChatColor.GOLD + "[WarvalePrison] " + ChatColor.YELLOW + message);
         }
     }

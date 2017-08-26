@@ -1,9 +1,10 @@
 package net.warvale.prison.sql;
 
-import java.sql.*;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
+
+import java.sql.*;
 
 public class SQLConnection {
     private final String user;

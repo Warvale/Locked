@@ -10,16 +10,16 @@ import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class WhoCommand extends AbstractCommand {
-    public WhoCommand(){
+    public WhoCommand() {
         super("who", "");
     }
+
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can use this command!");
         }
         Player player = (Player) sender;
@@ -30,52 +30,52 @@ public class WhoCommand extends AbstractCommand {
             ArrayList<Player> p = new ArrayList<>();
             p.addAll(Bukkit.getOnlinePlayers());
             StringBuilder sb = new StringBuilder();
-            player.sendMessage(ChatColor.GOLD+ "Online Players:");
+            player.sendMessage(ChatColor.GOLD + "Online Players:");
             for (int i = 0; i < p.size(); i++) {
-                if(RankManager.getRankId(p.get(i))==3) {//Admin
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+                if (RankManager.getRankId(p.get(i)) == 3) {//Admin
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
             for (int i = 0; i < p.size(); i++) {
-                if(RankManager.getRankId(p.get(i))==8) {//Dev
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+                if (RankManager.getRankId(p.get(i)) == 8) {//Dev
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            for(int i=0;i<p.size();i++){
-                if(RankManager.getRankId(p.get(i))==11) {//SrMod
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+            for (int i = 0; i < p.size(); i++) {
+                if (RankManager.getRankId(p.get(i)) == 11) {//SrMod
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            for(int i=0;i<p.size();i++){
-                if(RankManager.getRankId(p.get(i))==5) {//Mod
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+            for (int i = 0; i < p.size(); i++) {
+                if (RankManager.getRankId(p.get(i)) == 5) {//Mod
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            for(int i=0;i<p.size();i++){
-                if(RankManager.getRankId(p.get(i))==10) {//JrMod
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+            for (int i = 0; i < p.size(); i++) {
+                if (RankManager.getRankId(p.get(i)) == 10) {//JrMod
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            for(int i=0;i<p.size();i++){
-                if(RankManager.getRankId(p.get(i))==4) {//Builder
-                    sb.append(ChatColor.translateAlternateColorCodes('&',RankManager.getRankPrefix(p.get(i))+" "+ChatColor.WHITE+p.get(i).getName()));
-                    sb.append(ChatColor.GOLD+", ");
+            for (int i = 0; i < p.size(); i++) {
+                if (RankManager.getRankId(p.get(i)) == 4) {//Builder
+                    sb.append(ChatColor.translateAlternateColorCodes('&', RankManager.getRankPrefix(p.get(i)) + " " + ChatColor.WHITE + p.get(i).getName()));
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            for(int i=0;i<p.size();i++){
-                if(RankManager.getRankId(p.get(i))==0) {//Default
-                    sb.append(ChatColor.WHITE+p.get(i).getName());
-                    sb.append(ChatColor.GOLD+", ");
+            for (int i = 0; i < p.size(); i++) {
+                if (RankManager.getRankId(p.get(i)) == 0) {//Default
+                    sb.append(ChatColor.WHITE + p.get(i).getName());
+                    sb.append(ChatColor.GOLD + ", ");
                 }
             }
-            sb.deleteCharAt(sb.length()-2);//Removes last comma
+            sb.deleteCharAt(sb.length() - 2);//Removes last comma
             player.sendMessage(sb.toString());
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;

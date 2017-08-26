@@ -10,16 +10,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class PayCommand extends AbstractCommand{
-    public PayCommand(){
+public class PayCommand extends AbstractCommand {
+    public PayCommand() {
         super("pay", "<player> <amount>");
     }
+
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can use this command!");
         }
         Player player = (Player) sender;
@@ -33,13 +33,13 @@ public class PayCommand extends AbstractCommand{
             }
             int amount = Integer.valueOf(args[1]);
             boolean x = false;
-            for(Player p : Bukkit.getOnlinePlayers()){
-                if(p.getName().equals(args[0])){
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (p.getName().equals(args[0])) {
                     x = true;
                     break;
                 }
             }
-            if(!x){
+            if (!x) {
                 player.sendMessage(ChatColor.RED + "Could not find the specified player.");
                 return true;
             }
@@ -48,14 +48,14 @@ public class PayCommand extends AbstractCommand{
                 player.sendMessage(ChatColor.RED + "You do not have " + ChatColor.DARK_RED + String.valueOf(amount) + ChatColor.RED + " scraps!");
                 return true;
             }
-            if(amount==0){
+            if (amount == 0) {
                 player.sendMessage(ChatColor.RED + "You can not pay " + ChatColor.DARK_RED + "0" + ChatColor.RED + " scraps to someone!");
                 return true;
             }
             ScrapsUtil.payScraps(player, target, amount);
-            player.sendMessage(ChatColor.GREEN + "You payed " + target.getName() + " " +ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " scraps!");
+            player.sendMessage(ChatColor.GREEN + "You payed " + target.getName() + " " + ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " scraps!");
             target.sendMessage(ChatColor.GREEN + "You received " + ChatColor.GOLD + String.valueOf(amount) + ChatColor.GREEN + " scraps from " + player.getName() + "!");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;

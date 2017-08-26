@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Blast extends AbstractSubstance {
 
-    public Blast(){
+    public Blast() {
         super(4, "Blast", Material.BONE, ChatColor.GRAY);
     }
 

@@ -1,6 +1,5 @@
 package net.warvale.prison.commands.admin;
 
-import net.warvale.prison.Prison;
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
 import net.warvale.prison.utils.BlockUtils;
@@ -14,18 +13,18 @@ import java.util.List;
 
 public class ResetOresCommand extends AbstractCommand {
 
-    public ResetOresCommand(){
+    public ResetOresCommand() {
         super("resetores", "");
     }
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can use this command!");
         }
         Player player = (Player) sender;
         BlockUtils.resetOres();
-        for(Player p : Bukkit.getOnlinePlayers()){
+        for (Player p : Bukkit.getOnlinePlayers()) {
             p.sendMessage(ChatColor.RED + "The mine has been reset manually by " + player.getName());
         }
         return true;

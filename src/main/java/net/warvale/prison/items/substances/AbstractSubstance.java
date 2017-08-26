@@ -1,8 +1,8 @@
 package net.warvale.prison.items.substances;
 
-import net.warvale.prison.items.substances.substances.EnergyDrink;
 import net.warvale.prison.items.substances.substances.Blast;
 import net.warvale.prison.items.substances.substances.Coco;
+import net.warvale.prison.items.substances.substances.EnergyDrink;
 import net.warvale.prison.items.substances.substances.Sugar;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,18 +23,18 @@ public abstract class AbstractSubstance {
     private ItemStack item;
     private int id;
 
-    public AbstractSubstance(int id, String name, Material mat, ChatColor nameColor){
+    public AbstractSubstance(int id, String name, Material mat, ChatColor nameColor) {
         this.name = name;
         this.id = id;
         ItemStack i = new ItemStack(mat, 1);
-        ItemMeta meta  = i.getItemMeta();
+        ItemMeta meta = i.getItemMeta();
         meta.setDisplayName(ChatColor.DARK_RED + "[Substance] " + nameColor + name);
         meta.setLore(Collections.singletonList(ChatColor.BOLD.toString() + ChatColor.DARK_RED + "CONTRABAND"));
         i.setItemMeta(meta);
         this.item = i;
     }
 
-    public static void setup(){
+    public static void setup() {
         substances = new ArrayList<>();
         substances.add(new Sugar());
         substances.add(new Coco());
@@ -42,10 +42,12 @@ public abstract class AbstractSubstance {
         substances.add(new Blast());
     }
 
-    public static ArrayList<AbstractSubstance> getSubstances(){ return substances; }
+    public static ArrayList<AbstractSubstance> getSubstances() {
+        return substances;
+    }
 
-    public static AbstractSubstance getSubstance(String name){
-        for (AbstractSubstance drug : getSubstances()){
+    public static AbstractSubstance getSubstance(String name) {
+        for (AbstractSubstance drug : getSubstances()) {
             if (drug.getName().equals(name)) {
                 return drug;
             }
@@ -53,8 +55,8 @@ public abstract class AbstractSubstance {
         return null;
     }
 
-    public static AbstractSubstance getSubstance(int id){
-        for (AbstractSubstance drug : getSubstances()){
+    public static AbstractSubstance getSubstance(int id) {
+        for (AbstractSubstance drug : getSubstances()) {
             if (drug.getId() == id) {
                 return drug;
             }
@@ -64,9 +66,15 @@ public abstract class AbstractSubstance {
 
     public abstract void effect(Player player);
 
-    public String getName(){ return name; }
+    public String getName() {
+        return name;
+    }
 
-    public int getId(){ return id; }
+    public int getId() {
+        return id;
+    }
 
-    public ItemStack getItemStack() { return item; }
+    public ItemStack getItemStack() {
+        return item;
+    }
 }

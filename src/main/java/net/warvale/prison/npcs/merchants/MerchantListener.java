@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class MerchantListener implements Listener {
     @EventHandler
-    public void onPlayerInteractEntity(PlayerInteractEntityEvent event){
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
         try {

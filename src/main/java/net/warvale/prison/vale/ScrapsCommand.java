@@ -1,6 +1,5 @@
 package net.warvale.prison.vale;
 
-import net.warvale.prison.Prison;
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
 import net.warvale.prison.commands.CommandUtils;
@@ -11,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScrapsCommand extends AbstractCommand {
@@ -22,7 +20,7 @@ public class ScrapsCommand extends AbstractCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can use this command");
         }
         Player player = (Player) sender;
@@ -50,17 +48,17 @@ public class ScrapsCommand extends AbstractCommand {
                 }
                 break;
             case "set":
-                if(args.length!=3){
+                if (args.length != 3) {
                     return false;
                 }
-                if(!StringUtils.isNumeric(args[2])){
+                if (!StringUtils.isNumeric(args[2])) {
                     return false;
                 }
                 try {
                     ScrapsUtil.setScraps(target, Integer.valueOf(args[2]));
                     player.sendMessage(ChatColor.GREEN + target.getName() + "'s balance is now " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
                     target.sendMessage(ChatColor.GREEN + player.getName() + " set your balance to " + ChatColor.GOLD + args[2] + ChatColor.GREEN + "!");
-                } catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 break;

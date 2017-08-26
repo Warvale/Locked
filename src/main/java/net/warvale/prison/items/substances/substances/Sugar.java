@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Sugar extends AbstractSubstance {
 
-    public Sugar(){
+    public Sugar() {
         super(1, "Sugar", Material.SUGAR, ChatColor.WHITE);
     }
 

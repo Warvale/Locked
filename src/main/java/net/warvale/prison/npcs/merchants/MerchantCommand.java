@@ -12,34 +12,35 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class MerchantCommand extends AbstractCommand {
-    public MerchantCommand(){
-        super("shopnpc","");
+    public MerchantCommand() {
+        super("shopnpc", "");
     }
+
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can execute this command!");
         }
         Player player = (Player) sender;
-        if(args.length==0){
+        if (args.length == 0) {
             sendUsageMessage(player);
             return true;
         }
-        switch (args[0]){
+        switch (args[0]) {
             case "create":
-                if(args.length!=2){
+                if (args.length != 2) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc create <name>");
                     return true;
                 }
-                if(MerchantManager.getAllNPCs().contains(args[1])){
+                if (MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is already an NPC by the name " + args[1] + "!");
                     return true;
                 }
-                if(args[1].equals("name")){
+                if (args[1].equals("name")) {
                     player.sendMessage(ChatColor.RED + "The NPC's name can not be \"name\"!");
                     return true;
                 }
-                if(!StringUtils.isAlpha(args[1])){
+                if (!StringUtils.isAlpha(args[1])) {
                     player.sendMessage(ChatColor.RED + "The NPC's name can not include numbers or symbols!");
                     return true;
                 }
@@ -47,11 +48,11 @@ public class MerchantCommand extends AbstractCommand {
                 player.sendMessage(ChatColor.GREEN + "Successfully created the NPC " + args[1] + "!");
                 break;
             case "delete":
-                if(args.length!=2){
+                if (args.length != 2) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc delete <name>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
@@ -59,79 +60,79 @@ public class MerchantCommand extends AbstractCommand {
                 player.sendMessage(ChatColor.GREEN + "Successfully deleted the NPC " + args[1] + "!");
                 break;
             case "setprice":
-                if(args.length!=3){
+                if (args.length != 3) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc setprice <npc> <price>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
-                if(!StringUtils.isNumeric(args[2])){
+                if (!StringUtils.isNumeric(args[2])) {
                     player.sendMessage(ChatColor.RED + "Price must be numeric!");
                     return false;
                 }
                 MerchantManager.setPrice(args[1], Integer.valueOf(args[2]));
-                player.sendMessage(ChatColor.GREEN + "Successfully set the price of the item of the NPC " + args[1] + " to "+args[2]+"!");
+                player.sendMessage(ChatColor.GREEN + "Successfully set the price of the item of the NPC " + args[1] + " to " + args[2] + "!");
                 break;
             case "setitem":
-                if(args.length!=2){
+                if (args.length != 2) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc setitem <npc>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
-                if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+                if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
                     player.sendMessage(ChatColor.RED + "You must be holding an item for the npc to sell!");
                     return false;
                 }
                 MerchantManager.setItem(args[1], player.getInventory().getItemInMainHand());
-                player.sendMessage(ChatColor.GREEN + "Successfully set the item of the NPC " + args[1] + " to "+player.getInventory().getItemInMainHand().getItemMeta().getDisplayName()+"!");
+                player.sendMessage(ChatColor.GREEN + "Successfully set the item of the NPC " + args[1] + " to " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName() + "!");
                 break;
             case "setdenialmessage":
-                if(!(args.length>=3)){
+                if (!(args.length >= 3)) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc setdenialmessage <npc> <message>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
                 StringBuilder sb = new StringBuilder();
-                for(int i = 2; i < args.length; i++){
+                for (int i = 2; i < args.length; i++) {
                     sb.append(args[i]);
                     sb.append(" ");
                 }
                 String message = sb.toString();
                 MerchantManager.setDenialMessage(args[1], message);
-                player.sendMessage(ChatColor.GREEN + "Successfully set the denial message of the NPC " + args[1] + " to \""+message+"\"!");
+                player.sendMessage(ChatColor.GREEN + "Successfully set the denial message of the NPC " + args[1] + " to \"" + message + "\"!");
                 break;
             case "setsuccessmessage":
-                if(!(args.length>=3)){
+                if (!(args.length >= 3)) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc setsuccessmessage <npc> <message>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
                 StringBuilder sbb = new StringBuilder();
-                for(int i = 2; i < args.length; i++){
+                for (int i = 2; i < args.length; i++) {
                     sbb.append(args[i]);
                     sbb.append(" ");
                 }
                 String messagee = sbb.toString();
                 MerchantManager.setSuccessMessage(args[1], messagee);
-                player.sendMessage(ChatColor.GREEN + "Successfully set the denial message of the NPC " + args[1] + " to \""+messagee+"\"!");
+                player.sendMessage(ChatColor.GREEN + "Successfully set the denial message of the NPC " + args[1] + " to \"" + messagee + "\"!");
                 break;
             case "movehere":
-                if(!(args.length>=2)){
+                if (!(args.length >= 2)) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc movehere <npc>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
@@ -139,11 +140,11 @@ public class MerchantCommand extends AbstractCommand {
                 player.sendMessage(ChatColor.GREEN + "Successfully moved the NPC " + args[1] + " to your location!");
                 break;
             case "tp":
-                if(!(args.length>=2)){
+                if (!(args.length >= 2)) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc tp <npc>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
@@ -154,15 +155,15 @@ public class MerchantCommand extends AbstractCommand {
                 player.sendMessage(ChatColor.RED + "WIP");
                 break;
             case "rename":
-                if(!(args.length>=3)){
+                if (!(args.length >= 3)) {
                     player.sendMessage(ChatColor.GOLD + "/shopnpc rename <oldName> <newName>");
                     return true;
                 }
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "There is not an NPC by the name " + args[1] + "!");
                     return true;
                 }
-                if(MerchantManager.getAllNPCs().contains(args[2])){
+                if (MerchantManager.getAllNPCs().contains(args[2])) {
                     player.sendMessage(ChatColor.RED + "There is already an NPC by the name " + args[2] + "!");
                     return true;
                 }
@@ -172,12 +173,12 @@ public class MerchantCommand extends AbstractCommand {
             case "list":
                 player.sendMessage(ChatColor.GREEN + "All NPCs:");
                 StringBuilder sbbb = new StringBuilder();
-                for(String s : MerchantManager.getAllNPCs()){
+                for (String s : MerchantManager.getAllNPCs()) {
                     sbbb.append(ChatColor.GREEN + s);
                     sbbb.append(ChatColor.GOLD + ",");
                     sbbb.append(" ");
                 }
-                sbbb.deleteCharAt(sbbb.length()-2); //Remove the final comma
+                sbbb.deleteCharAt(sbbb.length() - 2); //Remove the final comma
                 String messageee = sbbb.toString();
                 player.sendMessage(ChatColor.GREEN + messageee);
                 break;
@@ -193,7 +194,7 @@ public class MerchantCommand extends AbstractCommand {
         return CommandUtils.generateTabCompleteArgs("create", "delete", "setprice", "setitem", "setdenialmessage", "setsuccessmessage", "movehere", "tp", "rename", "setnamecolor", "list");
     }
 
-    private void sendUsageMessage(Player p){
+    private void sendUsageMessage(Player p) {
         p.sendMessage(ChatColor.RED + "Usage: " + ChatColor.GRAY + "(NPC names are case-sensitive)");
         p.sendMessage(ChatColor.GOLD + "/shopnpc create <name>");
         p.sendMessage(ChatColor.GOLD + "/shopnpc delete <name>" + ChatColor.RED + " CAN NOT BE UNDONE!");

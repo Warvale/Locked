@@ -11,16 +11,17 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class NPCCommand extends AbstractCommand {
-    public NPCCommand(){
+    public NPCCommand() {
         super("npc", "<kill|spawn> [name]");
     }
+
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             throw new CommandException("Only players can use this command!");
         }
         Player player = (Player) sender;
-        switch (args.length){
+        switch (args.length) {
             case 1:
                 switch (args[0]) {
                     case "kill":
@@ -36,7 +37,7 @@ public class NPCCommand extends AbstractCommand {
                 }
                 break;
             case 2:
-                if(!MerchantManager.getAllNPCs().contains(args[1])){
+                if (!MerchantManager.getAllNPCs().contains(args[1])) {
                     player.sendMessage(ChatColor.RED + "Could not find an npc by this name!");
                     return true;
                 }

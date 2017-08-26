@@ -11,7 +11,7 @@ public abstract class AbstractCommand extends Parser {
     /**
      * Constructor for the uhc command super class.
      *
-     * @param name The name of the command.
+     * @param name  The name of the command.
      * @param usage the command usage (after /command)
      */
     public AbstractCommand(String name, String usage) {
@@ -65,9 +65,8 @@ public abstract class AbstractCommand extends Parser {
      * Execute the command.
      *
      * @param sender The sender of the command.
-     * @param args The argurments typed after the command.
+     * @param args   The argurments typed after the command.
      * @return True if successful, false otherwise. Returning false will send usage to the sender.
-     *
      * @throws CommandException If anything was wrongly typed this is thrown sending the sender a warning.
      */
     public abstract boolean execute(CommandSender sender, String[] args) throws CommandException;
@@ -76,7 +75,7 @@ public abstract class AbstractCommand extends Parser {
      * Tab complete the command.
      *
      * @param sender The sender of the command.
-     * @param args The argurments typed after the command
+     * @param args   The argurments typed after the command
      * @return A list of tab completable argurments.
      */
     public abstract List<String> tabComplete(CommandSender sender, String[] args);

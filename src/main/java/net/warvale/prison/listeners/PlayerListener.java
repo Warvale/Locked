@@ -10,12 +10,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,18 +22,20 @@ import java.sql.SQLException;
 
 public class PlayerListener implements Listener {
     private Prison plugin;
+
     public PlayerListener(Prison plugin) {
         this.plugin = plugin;
     }
+
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         try {
-            PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT * FROM scraps_eco WHERE uuid = '"+player.getUniqueId().toString()+"' LIMIT 1");
+            PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT * FROM scraps_eco WHERE uuid = '" + player.getUniqueId().toString() + "' LIMIT 1");
             ResultSet set = stmt.executeQuery();
             if (!set.next()) {
                 stmt.close();
-                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO scraps_eco (uuid, name, amount) VALUES ('"+player.getUniqueId().toString()+"','"+player.getName()+"', 0)");
+                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO scraps_eco (uuid, name, amount) VALUES ('" + player.getUniqueId().toString() + "','" + player.getName() + "', 0)");
                 stmt.execute();
                 stmt.close();
             }
@@ -45,11 +46,13 @@ public class PlayerListener implements Listener {
         }
         plugin.retrievePlayTime(player);
     }
+
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event){
+    public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         plugin.savePlayTime(player);
     }
+
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
@@ -61,7 +64,7 @@ public class PlayerListener implements Listener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(event.getItemDrop().getItemStack().getType().equals(Material.SULPHUR)){
+        if (event.getItemDrop().getItemStack().getType().equals(Material.SULPHUR)) {
             event.setCancelled(true);
         }
     }
@@ -81,11 +84,11 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event){
-        if(event.getSlot() == 8){
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (event.getSlot() == 8) {
             event.setCurrentItem(null);
             try {
-                ScrapsUtil.setScraps((Player)event.getWhoClicked(), ScrapsUtil.getScraps((Player)event.getWhoClicked()));
+                ScrapsUtil.setScraps((Player) event.getWhoClicked(), ScrapsUtil.getScraps((Player) event.getWhoClicked()));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -94,13 +97,17 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent event){
+    public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if(!(player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)){
-            if(BlockListener.inMineLocation(player.getLocation())){
-                if(player.getGameMode() != GameMode.SURVIVAL){player.setGameMode(GameMode.SURVIVAL);}
+        if (!(player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)) {
+            if (BlockListener.inMineLocation(player.getLocation())) {
+                if (player.getGameMode() != GameMode.SURVIVAL) {
+                    player.setGameMode(GameMode.SURVIVAL);
+                }
             } else {
-                if(player.getGameMode() != GameMode.ADVENTURE){player.setGameMode(GameMode.ADVENTURE);}
+                if (player.getGameMode() != GameMode.ADVENTURE) {
+                    player.setGameMode(GameMode.ADVENTURE);
+                }
             }
         }
     }
