@@ -2,6 +2,7 @@ package net.warvale.prison.vale;
 
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
+import net.warvale.prison.commands.CommandUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,10 +63,6 @@ public class PayCommand extends AbstractCommand{
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        ArrayList<String> a = new ArrayList<>();
-        for(Player p : Bukkit.getOnlinePlayers()){
-            a.add(p.getName());
-        }
-        return a;
+        return CommandUtils.generateTabCompletePlayers();
     }
 }

@@ -1,6 +1,5 @@
 package net.warvale.prison.npcs.merchants;
 
-
 import net.warvale.prison.Prison;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

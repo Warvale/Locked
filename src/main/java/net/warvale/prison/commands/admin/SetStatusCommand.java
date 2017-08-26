@@ -2,6 +2,7 @@ package net.warvale.prison.commands.admin;
 
 import net.warvale.prison.commands.AbstractCommand;
 import net.warvale.prison.commands.CommandException;
+import net.warvale.prison.commands.CommandUtils;
 import net.warvale.prison.ranks.RankManager;
 import net.warvale.prison.vale.ScrapsUtil;
 import org.bukkit.Bukkit;
@@ -149,10 +150,6 @@ public class SetStatusCommand extends AbstractCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        ArrayList<String> a = new ArrayList<>();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            a.add(p.getName());
-        }
-        return a;
+        return CommandUtils.generateTabCompletePlayers();
     }
 }
