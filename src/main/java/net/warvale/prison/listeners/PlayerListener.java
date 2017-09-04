@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        try {
+        /*try { TODO: Move scraps to the new db
             PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT * FROM scraps_eco WHERE uuid = '" + player.getUniqueId().toString() + "' LIMIT 1");
             ResultSet set = stmt.executeQuery();
             if (!set.next()) {
@@ -41,6 +41,21 @@ public class PlayerListener implements Listener {
             }
             set.close();
             ScrapsUtil.setScraps(player, ScrapsUtil.getScraps(player));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+        //Put player into database
+        try {
+            PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT * FROM users_locked WHERE uuid = '"+player.getUniqueId().toString()+"' LIMIT 1");
+            ResultSet set = stmt.executeQuery();
+            if (!set.next()) {
+                stmt.close();
+                stmt = plugin.getDb().getConnection().prepareStatement("INSERT INTO users_locked (uuid, name) VALUES ('"+player.getUniqueId().toString()+"', '"+player.getName()+"')");
+                stmt.execute();
+                stmt.close();
+            }
+            set.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

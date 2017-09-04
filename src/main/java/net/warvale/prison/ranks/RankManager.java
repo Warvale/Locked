@@ -12,7 +12,7 @@ public class RankManager {
 
     //Returns the Prefix of the player's rank
     public static String getRankPrefix(Player player) throws SQLException {
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT prefix FROM ranks_locked WHERE id = " + getRankId(player) + " LIMIT 1");
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT prefix FROM ranks WHERE id = " + getRankId(player) + " LIMIT 1");
         ResultSet set = stmt.executeQuery();
         set.next();
         return set.getString("prefix");
@@ -20,7 +20,7 @@ public class RankManager {
 
     //Returns the Suffix of the player's rank
     public static String getRankSuffix(Player player) throws SQLException {
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT suffix FROM ranks_locked WHERE id = " + getRankId(player) + " LIMIT 1");
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT suffix FROM ranks WHERE id = " + getRankId(player) + " LIMIT 1");
         ResultSet set = stmt.executeQuery();
         set.next();
         return set.getString("suffix");
@@ -28,7 +28,7 @@ public class RankManager {
 
     //Returns the name color of the player's rank
     public static String getRankNameColor(Player player) throws SQLException {
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT color FROM ranks_locked WHERE id = " + getRankId(player) + " LIMIT 1");
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT color FROM ranks WHERE id = " + getRankId(player) + " LIMIT 1");
         ResultSet set = stmt.executeQuery();
         set.next();
         return set.getString("color");
@@ -36,7 +36,7 @@ public class RankManager {
 
     //Returns the id of the player's rank
     public static int getRankId(Player player) throws SQLException {
-        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT network_rank FROM users_locked WHERE uuid = '" + player.getUniqueId().toString() + "' LIMIT 1");
+        PreparedStatement stmt = plugin.getDb().getConnection().prepareStatement("SELECT network_rank FROM users WHERE uuid = '" + player.getUniqueId().toString() + "' LIMIT 1");
         ResultSet set = stmt.executeQuery();
         set.next();
         return set.getInt("network_rank");
